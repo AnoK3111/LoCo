@@ -1,0 +1,31 @@
+# arguments for dataset
+dataset: FAHSYU_LC
+nclass: 3
+crop_size: 321
+data_root: "/data/dataset/FAHSYU_LC"
+
+# arguments for training
+epochs: 100
+batch_size: 8 # per GPU x 1 GPUs
+lr: 0.001
+lr_multi: 10.0
+ema: 0.999
+criterion:
+  name: CELoss
+  kwargs:
+    ignore_index: 255
+conf_thresh: 0.95
+init_threshold: 0.90
+
+# arguments for model
+model: deeplabv3plus
+# backbone: mocov3_vit_base
+backbone: resnet50
+replace_stride_with_dilation: [False, False, True]
+dilations: [6, 12, 18]
+
+# contrastive learning
+use_ada_threshold: False
+rs_sampling_rate: 0.3
+bs_sampling_rate: 0.3
+contrastive_weight: 0.1
